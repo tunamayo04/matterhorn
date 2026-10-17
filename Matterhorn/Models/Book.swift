@@ -2,12 +2,18 @@ import Foundation
 
 struct Book: Identifiable, Codable {
     let id: Int
-    var title: String
-    let fileName: String      // file inside Documents/Books
+    let fileName: String
     var group: String?
+    var cover: URL?
+    let data: BookData
+}
+
+struct BookData: Codable {
+    let title: String
+    let styleSheet: String
+    let elementHtml: String
 }
 
 extension Book {
-    // Fake group list for now
     static let sampleGroups = ["Favorites", "Japanese Literature", "Classics"]
 }

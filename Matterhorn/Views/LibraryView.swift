@@ -31,12 +31,12 @@ struct LibraryView: View {
 
         let query = searchText.trimmingCharacters(in: .whitespaces)
         if !query.isEmpty {
-            books = books.filter { $0.title.localizedCaseInsensitiveContains(query) }
+            books = books.filter { $0.data.title.localizedCaseInsensitiveContains(query) }
         }
 
         switch sortOption {
         case .title:
-            books.sort { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+            books.sort { $0.data.title.localizedCaseInsensitiveCompare($1.data.title) == .orderedAscending }
         case .bookID:
             books.sort { $0.id < $1.id }
         }
@@ -80,7 +80,7 @@ struct LibraryView: View {
                     Button {
                         showingImporter = true
                     } label : {
-                        Image(systemName: "arrow.trianglehead.clockwise")
+                        Image(systemName: "externaldrive")
                     }
                 }
             }
@@ -90,7 +90,7 @@ struct LibraryView: View {
             )
             .fileImporter(
                 isPresented: $showingImporter,
-                allowedContentTypes: [.pdf, .epub],
+                allowedContentTypes: [.pdf, .epub, .folder],
                 allowsMultipleSelection: true
             ) { result in
                 if case .success(let urls) = result {
@@ -165,7 +165,7 @@ struct BookCell: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .shadow(radius: 3, y: 2)
 
-            Text(book.title)
+            Text(book.data.title)
                 .font(.subheadline)
                 .lineLimit(2)
         }
