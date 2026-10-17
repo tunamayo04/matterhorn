@@ -5,7 +5,7 @@ struct ReadingAppApp: App {
     @StateObject private var store = BookStore()
 
     init() {
-        resetAppData()
+        //resetAppData()
     }
     
     var body: some Scene {

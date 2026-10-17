@@ -59,7 +59,11 @@ struct LibraryView: View {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(filteredBooks) { book in
-                                BookCell(book: book, cover: store.coverImage(for: book))
+                                NavigationLink {
+                                    ReaderView(book: book)
+                                } label: {
+                                    BookCell(book: book, cover: store.coverImage(for: book))
+                                }.buttonStyle(.plain)
                             }
                         }
                         .padding()
